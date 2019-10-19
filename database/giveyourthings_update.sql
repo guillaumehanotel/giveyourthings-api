@@ -1,9 +1,8 @@
-CREATE DATABASE IF NOT EXISTS `giveyourthings` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `giveyourthings`;
 
 DROP TABLE IF EXISTS `ads`;
 DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `users`;
+
 
 CREATE TABLE IF NOT EXISTS `users`
 (
@@ -13,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `users`
     `firstname`  varchar(255) NOT NULL,
     `lastname`   varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL,
-    `photoUrl`   varchar(255) NOT NULL,
+    `photoUrl`   varchar(255) DEFAULT NULL,
     `created_at` datetime DEFAULT NULL,
     `updated_at` datetime DEFAULT NULL,
     PRIMARY KEY (`id`)
@@ -78,4 +77,3 @@ VALUES ('Chaussettes en Mithril', 'Elles brillent dans le noir', 'Don', 'État m
        ('Épée Durandil', 'Meme qu\'elle m\'a couté 10 000 pièces d\'or !!', 'Don', 'Comme neuf', 1, 13),
        ('Polochon mystique de Zuggira', 'L’histoire étrange d’une arme moelleuse', 'Don', 'À Bricoler', 2, 6),
        ('Brasero Nécromantique Multifonction', 'Parce que bon, il faut bien décorer chez soi.', 'Don', 'Comme neuf', 2, 6);
-

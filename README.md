@@ -22,10 +22,12 @@ User structure :
 
     {
         "id",
+        "uid",
         "email", **
         "username", **
         "firstname",
-        "lastname"
+        "lastname",
+        "photoUrl"
     }
 
 ** : Obligatoire
@@ -34,8 +36,8 @@ User structure :
 
     GET /api/ads
     GET /api/ads/{id}
-    POST /api/ads
-    PUT /api/ads/{id}
+    POST /api/users/{user_id}/ads
+    PUT /api/users/{user_id}/ads/{id}
     DELETE /api/ads/{id}
 
 
