@@ -23,7 +23,7 @@ class AdController extends Controller {
         $ads = Ad::all();
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode($ads));
+            ->write(formatResponse($ads));
     }
 
     public function getByUser(Request $request, Response $response, $args) {
@@ -39,7 +39,7 @@ class AdController extends Controller {
         $ads = $user->ads()->get();
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode($ads));
+            ->write(formatResponse($ads));
     }
 
     public function show(Request $request, Response $response, $args) {
@@ -61,7 +61,7 @@ class AdController extends Controller {
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode($ad));
+            ->write(formatResponse($ad));
     }
 
     public function store(Request $request, Response $response, $args) {
