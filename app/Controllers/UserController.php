@@ -49,7 +49,8 @@ class UserController extends Controller {
         /** @var Validator $validation */
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->userEmailAvailable(),
-            'username' => v::noWhitespace()->notEmpty()
+            'username' => v::noWhitespace()->notEmpty(),
+            'uid' => v::noWhitespace()->notEmpty()
         ]);
 
         if ($validation->failed()) {
@@ -60,8 +61,12 @@ class UserController extends Controller {
 
         $data = $request->getParsedBody();
         $user = User::create([
+            'uid' => $data['uid'],
             'username' => $data['username'],
-            'email' => $data['email']
+            'email' => $data['email'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'photoUrl' => $data['photoUrl']
         ]);
         $user->save();
 
@@ -108,8 +113,12 @@ class UserController extends Controller {
         $data = $request->getParsedBody();
 
         $user->update([
+            'uid' => $data['uid'] ?? $user->uid,
             'email' => $data['email'] ?? $user->email,
             'username' => $data['username'] ?? $user->username,
+            'firstname' => $data['firstname'] ?? $user->firstname,
+            'lastname' => $data['lastname'] ?? $user->lastname,
+            'photoUrl' => $data['photoUrl'] ?? $user->photoUrl,
         ]);
 
         return $response->withStatus(200);
