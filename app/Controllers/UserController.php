@@ -19,7 +19,7 @@ class UserController extends Controller {
         $users = User::all();
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(formatResponse($users));
+            ->write($users);
     }
 
     public function show(Request $request, Response $response, $args) {
@@ -41,7 +41,7 @@ class UserController extends Controller {
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(formatResponse($user));
+            ->write($user);
     }
 
     public function store(Request $request, Response $response) {

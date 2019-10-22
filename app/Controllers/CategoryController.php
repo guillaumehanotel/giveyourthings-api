@@ -20,7 +20,7 @@ class CategoryController extends Controller {
         $categories = Category::all();
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(formatResponse($categories));
+            ->write($categories);
     }
 
     public function show(Request $request, Response $response, $args) {
@@ -42,7 +42,7 @@ class CategoryController extends Controller {
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
-            ->write(formatResponse($category));
+            ->write($category);
     }
 
 }
