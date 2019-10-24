@@ -15,14 +15,23 @@ class UserController extends Controller {
         parent::__construct($container);
     }
 
-    public function index(Request $request, $response) {
+    public function index(Request $request, Response $response) {
         $users = User::all();
 
         $queryParameters = $request->getQueryParams();
 
         if(isset($queryParameters['uid'])) {
             $uid = $queryParameters['uid'];
-            $users = User::where('uid', '=', $uid)->first();
+            $user = User::where('uid', '=', $uid)->first();
+            if(empty($user)) {
+                return $response->withStatus(404)
+                    ->withHeader('Content-Type', 'text/html')
+                    ->write("No user with UID : " . $uid);
+            } else {
+                return $response->withStatus(200)
+                    ->withHeader('Content-Type', 'application/json')
+                    ->write($user);
+            }
         }
 
         return $response->withStatus(200)
