@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model {
 
     protected $fillable = [
+        'uid',
         'username',
         'firstname',
         'lastname',
         'email',
+        'photoUrl'
     ];
 
     public function ads() {
