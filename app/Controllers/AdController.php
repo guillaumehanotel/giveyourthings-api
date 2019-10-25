@@ -20,23 +20,7 @@ class AdController extends Controller {
     }
 
     public function index(Request $request, Response $response) {
-        $ads = Ad::all();
-
-        $queryParameters = $request->getQueryParams();
-
-        if(isset($queryParameters['title'])) {
-            $searchedTitle = $queryParameters['title'];
-            $ads = Ad::where('title', 'like', '%' . $searchedTitle . '%')->get();
-            if(empty($ads)) {
-                return $response->withStatus(404)
-                    ->withHeader('Content-Type', 'text/html')
-                    ->write("No users with title like : " . $searchedTitle);
-            } else {
-                return $response->withStatus(200)
-                    ->withHeader('Content-Type', 'application/json')
-                    ->write($ads);
-            }
-        }
+        $ads = Ad::orderBy('created_at', 'desc')->get();
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
