@@ -36,7 +36,7 @@ class DiscussionReplyController extends Controller {
                 ->write($exception->getMessage());
         }
 
-        $discussionReplies = $discussion->replies;
+        $discussionReplies = $discussion->replies()->orderByDesc('created_at')->get();
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
