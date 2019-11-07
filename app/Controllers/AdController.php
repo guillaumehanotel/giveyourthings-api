@@ -69,7 +69,7 @@ class AdController extends Controller {
                 $ads = [];
         }
 
-        $discussedAds = $ads->filter([$this, 'discussedAds']);
+        $discussedAds = $ads->filter([$this, 'discussedAds'])->values();
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
