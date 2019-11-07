@@ -160,6 +160,8 @@ class AdController extends Controller {
         $ad->description = $data['description'];
         $ad->type = $data['type'];
         $ad->localisation = $data['localisation'] ?? null;
+        $ad->latitude = $data['latitude'] ?? null;
+        $ad->longitude = $data['longitude'] ?? null;
         $ad->condition = $data['condition'];
         $ad->user_id = $userId;
         $ad->category_id = $data['category_id'];
@@ -178,21 +180,6 @@ class AdController extends Controller {
             return $response->withStatus(400);
         }
 
-//        /** @var Validator $validation */
-//        $validation = $this->validator->validate($request, [
-//            'title' => v::notEmpty(),
-//            'type' => v::notEmpty(),
-//            'description' => v::notEmpty(),
-//            'condition' => v::notEmpty(),
-//            'category_id' => v::notEmpty()
-//        ]);
-//
-//        if ($validation->failed()) {
-//            return $response->withStatus(400)
-//                ->withHeader('Content-Type', 'text/html')
-//                ->write(json_encode($validation->getErrors()));
-//        }
-
         $data = $request->getParsedBody();
 
         try {
@@ -210,6 +197,8 @@ class AdController extends Controller {
         $ad->description = $data['description'] ?? $ad->description;
         $ad->type = $data['type'] ?? $ad->type;
         $ad->localisation = $data['localisation'] ?? $ad->localisation;
+        $ad->latitude = $data['latitude'] ?? $ad->latitude;
+        $ad->longitude = $data['longitude'] ?? $ad->longitude;
         $ad->condition = $data['condition'] ?? $ad->condition;
         $ad->category_id = $data['category_id'] ?? $ad->category_id;
         $ad->save();
