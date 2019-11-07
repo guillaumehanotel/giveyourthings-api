@@ -150,7 +150,7 @@ class AdController extends Controller {
                 ->write(json_encode($validation->getErrors()));
         }
 
-        $imagesDirectory = $this->get('upload_directory');
+        $imagesDirectory = $this->upload_directory;
 
         var_dump($imagesDirectory);
 
