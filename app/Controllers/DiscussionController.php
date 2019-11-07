@@ -66,7 +66,7 @@ class DiscussionController extends Controller {
                 ->write($exception->getMessage());
         }
 
-        $discussions = $ad->discussions()->first();
+        $discussions = $ad->discussions()->get();
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
