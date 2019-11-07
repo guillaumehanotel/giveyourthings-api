@@ -162,4 +162,5 @@ ALTER TABLE `discussion_replies`
 
 INSERT INTO `discussion_replies` (`user_id`, `discussion_id`, `message`, `created_at`)
 VALUES (2, 1, 'Je suis intéressé par ton vélo', SUBTIME(NOW(), '02:00:00')),
-       (1, 1, 'Bah viens le chercher', SUBTIME(NOW(), '01:00:00'));
+       (1, 1, 'Bah viens le chercher', SUBTIME(NOW(), '01:00:00')),
+       (1, 2, 'Quelle taille la table basse ?', SUBTIME(NOW(), '01:00:00'));

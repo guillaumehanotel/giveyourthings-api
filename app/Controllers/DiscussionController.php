@@ -66,7 +66,7 @@ class DiscussionController extends Controller {
                 ->write($exception->getMessage());
         }
 
-        $discussions = $ad->discussions()->get();
+        $discussions = $ad->discussions()->first();
 
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
@@ -89,6 +89,14 @@ class DiscussionController extends Controller {
             return $response->withStatus(404)
                 ->withHeader('Content-Type', 'text/html')
                 ->write($exception->getMessage());
+        }
+
+        /** @var \Illuminate\Database\Eloquent\Collection $existingDiscussion */
+        $existingDiscussion = Discussion::where('ad_id', '=', $adId)->where('requester_id', '=', $userId)->first();
+        if($existingDiscussion->isNotEmpty()) {
+            return$response->withStatus(200)
+                ->withHeader('Content-Type', 'text/html')
+                ->withHeader('Location', APP_URL . ':' . $_SERVER['SERVER_PORT'] . '/api/discussions/' . $existingDiscussion->id);
         }
 
         $discussion = new Discussion();
