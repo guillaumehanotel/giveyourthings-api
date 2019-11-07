@@ -18,6 +18,7 @@ $app->put("/api/users/{id}", "UserController:update")->setName('users.update');
 $app->delete("/api/users/{id}", "UserController:destroy")->setName('users.destroy');
 
 // Ads Endpoints
+$app->get("/api/ads/online", "AdController:getOnlineAds")->setName('ads.getOnlineAds');
 $app->get("/api/ads", "AdController:index")->setName('ads.index');
 $app->get("/api/ads/{id}", "AdController:show")->setName('ads.show');
 $app->post("/api/users/{user_id}/ads", "AdController:store")->setName('ads.store');
@@ -25,7 +26,8 @@ $app->put("/api/users/{user_id}/ads/{id}", "AdController:update")->setName('ads.
 $app->delete("/api/ads/{id}", "AdController:destroy")->setName('ads.destroy');
 
 $app->get("/api/users/{user_id}/ads", "AdController:getByUser")->setName('ads.getbyuser');
-$app->get("/api/users/{user_id}/ads/{state}", "AdController:getAdsByState")->setName('ads.getadsbystate');
+$app->get("/api/users/{user_id}/ads/{state}", "AdController:getAdsByStateAndUser")->setName('ads.getAdsByStateAndUser');
+
 
 // Categories Endpoints
 $app->get("/api/categories", "CategoryController:index")->setName('categories.index');

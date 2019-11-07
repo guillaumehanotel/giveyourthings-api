@@ -31,7 +31,14 @@ class AdController extends Controller {
         return $ad->discussions()->exists();
     }
 
-    public function getAdsByState(Request $request, Response $response, $args) {
+    public function getOnlineAds(Request $request, Response $response) {
+        $onlineAds = Ad::where('is_given', '=', 'false')->get();
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write($onlineAds);
+    }
+
+    public function getAdsByStateAndUser(Request $request, Response $response, $args) {
         $id = $args['user_id'];
         $state = $args['state'];
 
