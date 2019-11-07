@@ -17,6 +17,28 @@ class DiscussionReplyController extends Controller {
         parent::__construct($container);
     }
 
+    public function show(Request $request, Response $response, $args) {
+        $id = $args['id'];
+
+        if (v::intVal()->validate($id) == false) {
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'text/html')
+                ->write("Incorrect ID");;
+        }
+
+        try {
+            $discussionReply = DiscussionReply::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return $response->withStatus(404)
+                ->withHeader('Content-Type', 'text/html')
+                ->write($exception->getMessage());
+        }
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write($discussionReply);
+    }
+
     public function getRepliesByDiscussion(Request $request, Response $response, $args) {
 
         $id = $args['id'];
@@ -41,6 +63,37 @@ class DiscussionReplyController extends Controller {
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
             ->write($discussionReplies);
+    }
+
+    public function store(Request $request, Response $response, $args) {
+
+        $discussionId = $args['discussion_id'];
+        $userId = $args['user_id'];
+
+        if (v::intVal()->validate($userId) == false && v::intVal()->validate($discussionId) == false) {
+            return $response->withStatus(400);
+        }
+
+        try {
+            User::findOrFail($userId);
+            Discussion::findOrFail($discussionId);
+        } catch (ModelNotFoundException $exception) {
+            return $response->withStatus(404)
+                ->withHeader('Content-Type', 'text/html')
+                ->write($exception->getMessage());
+        }
+
+        $data = $request->getParsedBody();
+
+        $discussionReply = new DiscussionReply();
+        $discussionReply->user_id = $userId;
+        $discussionReply->discussion_id = $discussionId;
+        $discussionReply->message = $data['message'];
+        $discussionReply->save();
+
+        return $response->withStatus(201)
+            ->withHeader('Content-Type', 'text/html')
+            ->withHeader('Location', APP_URL . ':' . $_SERVER['SERVER_PORT'] . '/api/discussion_replies/' . $discussionReply->id);
     }
 
 }
