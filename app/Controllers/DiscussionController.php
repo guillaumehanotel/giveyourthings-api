@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Models\Ad;
 use App\Models\Discussion;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Respect\Validation\Validator as v;
 use Slim\Http\Request;
@@ -44,6 +45,32 @@ class DiscussionController extends Controller {
         return $response->withStatus(200)
             ->withHeader('Content-Type', 'application/json')
             ->write($discussion);
+    }
+
+    public function getDiscussionsByUserAndAd(Request $request, Response $response, $args) {
+        $userId = $args['user_id'];
+        $adId = $args['ad_id'];
+
+        if (v::intVal()->validate($userId) == false && v::intVal()->validate($adId) == false) {
+            return $response->withStatus(400);
+        }
+
+        try {
+            /** @var User $user */
+            User::findOrFail($userId);
+            /** @var Ad $ad */
+            $ad = Ad::findOrFail($adId);
+        } catch (ModelNotFoundException $exception) {
+            return $response->withStatus(404)
+                ->withHeader('Content-Type', 'text/html')
+                ->write($exception->getMessage());
+        }
+
+        $discussions = $ad->discussions()->get();
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write($discussions);
     }
 
     public function store(Request $request, Response $response, $args) {
