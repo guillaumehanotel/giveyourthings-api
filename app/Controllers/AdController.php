@@ -83,7 +83,6 @@ class AdController extends Controller {
             ->write($discussedAds);
     }
 
-
     public function getByUser(Request $request, Response $response, $args) {
         $id = $args['user_id'];
 
@@ -150,6 +149,16 @@ class AdController extends Controller {
                 ->withHeader('Content-Type', 'text/html')
                 ->write(json_encode($validation->getErrors()));
         }
+
+        $imagesDirectory = $this->get('upload_directory');
+
+        var_dump($imagesDirectory);
+
+        $uploadedFiles = $request->getUploadedFiles();
+
+        var_dump($uploadedFiles);
+
+        exit();
 
         $data = $request->getParsedBody();
 

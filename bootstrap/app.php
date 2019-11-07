@@ -83,6 +83,8 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$container['upload_directory'] = BASE_PATH . '/public/images/';
+
 $container['HomeController'] = function ($container) {
     return new HomeController($container);
 };

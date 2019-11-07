@@ -27,7 +27,7 @@ $app->delete("/api/ads/{id}", "AdController:destroy")->setName('ads.destroy');
 
 $app->get("/api/users/{user_id}/ads", "AdController:getByUser")->setName('ads.getbyuser');
 $app->get("/api/users/{user_id}/ads/{state}", "AdController:getAdsByStateAndUser")->setName('ads.getAdsByStateAndUser');
-
+$app->post("/api/ads/{id}/image", "AdController:storeImage")->setName('ads.storeimage');
 
 // Categories Endpoints
 $app->get("/api/categories", "CategoryController:index")->setName('categories.index');
