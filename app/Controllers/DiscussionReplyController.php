@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Models\Discussion;
 use App\Models\DiscussionReply;
+use App\Models\User;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
