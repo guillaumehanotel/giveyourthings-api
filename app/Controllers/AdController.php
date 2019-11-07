@@ -27,8 +27,64 @@ class AdController extends Controller {
             ->write($ads);
     }
 
+    public function discussedAds(Ad $ad) {
+        return $ad->discussions()->exists();
+    }
+
+    public function getAdsByState(Request $request, Response $response, $args) {
+        $id = $args['user_id'];
+        $state = $args['state'];
+
+        if (v::intVal()->validate($id) == false) {
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'text/html')
+                ->write("Incorrect ID");
+        }
+
+        if(!in_array($state, ['finalized', 'reserved', 'online'])) {
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'text/html')
+                ->write("state should be finalized|reserved|online");
+        }
+
+        try {
+            $user = User::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return $response->withStatus(404)
+                ->withHeader('Content-Type', 'text/html')
+                ->write($exception->getMessage());
+        }
+
+        switch ($state){
+            case 'finalized':
+                $ads = $user->ads()->where('is_given', '=', true)->get();
+                break;
+            case 'reserved':
+                $ads = $user->ads()->where('is_given', '=', false)->where('booker_id', '!=', null)->get();
+                break;
+            case 'online':
+                $ads = $user->ads()->where('is_given', '=', '0')->whereNull('booker_id')->get();
+                break;
+            default:
+                $ads = [];
+        }
+
+        $discussedAds = $ads->filter([$this, 'discussedAds']);
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->write($discussedAds);
+    }
+
+
     public function getByUser(Request $request, Response $response, $args) {
         $id = $args['user_id'];
+
+        if (v::intVal()->validate($id) == false) {
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'text/html')
+                ->write("Incorrect ID");;
+        }
 
         try {
             $user = User::findOrFail($id);

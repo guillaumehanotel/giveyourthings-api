@@ -2,30 +2,113 @@
 
 {% block content %}
 
-    <div class="api-endpoints">
+    <div class="container">
 
-        <div class="user-endpoints">
-            <h4>Users</h4>
-            <p><a href="/api/users" target="_blank">GET /api/users</a></p>
-            <p><a href="#">GET /api/users/{id}</a></p>
-            <p><a href="#">POST /api/users</a></p>
-            <p><a href="#">PUT /api/users/{id}</a></p>
-            <p><a href="#">DELETE /api/users/{id}</a></p>
+        <div class="row">
+
+            <div class="entity-endpoints six columns">
+                <h4>Users</h4>
+                <p><a href="/api/users" target="_blank">GET /api/users</a></p>
+                <p><a href="#">GET /api/users/{id}</a></p>
+                <p><a href="#">POST /api/users</a></p>
+                <p><a href="#">PUT /api/users/{id}</a></p>
+                <p><a href="#">DELETE /api/users/{id}</a></p>
+            </div>
+
+            <div class="structure six columns">
+    <pre>
+    {
+        "id",
+        "uid",
+        "email", *
+        "username", *
+        "firstname",
+        "lastname",
+        "photoUrl",
+        "created_at",
+        "updated_at"
+    }</pre>
+            </div>
         </div>
 
-        <div class="ads-endpoints">
-            <h4>Ads</h4>
-            <p><a href="/api/ads" target="_blank">GET /api/ads</a></p>
-            <p><a href="#">GET /api/ads/{id}</a></p>
-            <p><a href="#">POST /api/users/{user_id}/ads</a></p>
-            <p><a href="#">PUT /api/users/{user_id}/ads/{id}</a></p>
-            <p><a href="#">DELETE /api/ads/{id}</a></p>
+        <hr>
+
+        <div class="row">
+
+            <div class="ads-endpoints six columns">
+                <h4>Ads</h4>
+                <p><a href="/api/ads" target="_blank">GET /api/ads</a></p>
+                <p><a href="#">GET /api/ads/{id}</a></p>
+                <p><a href="#">POST /api/users/{user_id}/ads</a></p>
+                <p><a href="#">PUT /api/users/{user_id}/ads/{id}</a></p>
+                <p><a href="#">DELETE /api/ads/{id}</a></p>
+            </div>
+
+            <div class="structure six columns">
+    <pre>
+    {
+        "id",
+        "title", *
+        "description", *
+        "type", *
+        "condition", *
+        "localisation",
+        "category_id", *
+        "user_id", *
+        "booker_id",
+        "is_given",
+        "created_at",
+        "updated_at"
+    }</pre>
+            </div>
         </div>
 
-        <div class="categories-endpoints">
-            <h4>Categories</h4>
-            <p><a href="/api/categories" target="_blank">GET /api/categories</a></p>
-            <p><a href="#">GET /api/categories/{id}</a></p>
+        <hr>
+
+        <div class="row">
+            <div class="categories-endpoints">
+                <h4>Categories</h4>
+                <p><a href="/api/categories" target="_blank">GET /api/categories</a></p>
+                <p><a href="#">GET /api/categories/{id}</a></p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="discussion-endpoints six columns">
+                <h4>Discussions</h4>
+                <p><a href="/api/discussions" target="_blank">GET /api/discussions</a></p>
+                <p><a href="#">GET /api/discussions/{id}</a></p>
+                <p><a href="#">POST /api/users/{user_id}/ads/{ad_id}/discussions</a></p>
+            </div>
+            <div class="structure six columns">
+    <pre>
+    {
+        "id",
+        "ad_id",
+        "requester_id",
+        "created_at",
+        "updated_at"
+    }</pre>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="discussion_replies-endpoints six columns">
+                <h4>Discussion Replies</h4>
+                <p><a href="#">GET /api/discussions/{id}/discussion_replies</a></p>
+            </div>
+            <div class="structure six columns">
+    <pre>
+    {
+        "id",
+        "created_at",
+        "updated_at"
+    }</pre>
+            </div>
         </div>
 
     </div>

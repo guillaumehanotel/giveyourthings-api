@@ -11,16 +11,25 @@ class Ad extends Model {
         'description',
         'type',
         'condition',
-        'localisation'
+        'localisation',
+        'is_given'
     ];
 
-
     public function user() {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function booker() {
+        return $this->belongsTo('App\Models\User', 'booker_id');
     }
 
     public function category() {
-        return $this->hasOne('App\Models\Category');
+        return $this->hasOne('App\Models\Category', 'category_id');
     }
+
+    public function discussions() {
+        return $this->hasMany('App\Models\Discussion');
+    }
+
 
 }

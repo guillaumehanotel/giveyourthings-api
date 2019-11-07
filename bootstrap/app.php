@@ -2,6 +2,8 @@
 
 use App\Controllers\AdController;
 use App\Controllers\CategoryController;
+use App\Controllers\DiscussionController;
+use App\Controllers\DiscussionReplyController;
 use DI\Container;
 use Dotenv\Dotenv;
 use App\Controllers\HomeController;
@@ -92,6 +94,12 @@ $container['AdController'] = function ($container) {
 };
 $container['CategoryController'] = function ($container) {
     return new CategoryController($container);
+};
+$container['DiscussionController'] = function ($container) {
+    return new DiscussionController($container);
+};
+$container['DiscussionReplyController'] = function ($container) {
+    return new DiscussionReplyController($container);
 };
 
 

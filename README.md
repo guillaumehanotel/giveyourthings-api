@@ -54,7 +54,7 @@ Ads structure :
         "description", **
         "type", **
         "condition", **
-        "localidation",
+        "localisation",
         "category_id", **
         "user_id" **
     }

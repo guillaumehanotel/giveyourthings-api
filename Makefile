@@ -13,4 +13,4 @@ deploy:
 	cd /home/guillaumeh/localenv/Workspaces/Projects/vps-provisioning && ansible-playbook plays/project-install.yml
 
 serve:
-	@php -S localhost:8080 -t public public/index.php
+	@php -S localhost:8080 -t public

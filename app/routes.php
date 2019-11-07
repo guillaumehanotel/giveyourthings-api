@@ -1,7 +1,14 @@
 <?php
 
+use Slim\Http\Request;
+use Slim\Http\Response;
+
+$app->get('/', function (Request $request, Response $response) {
+    return $response->withRedirect('/api');
+});
+
 // Home
-$app->get("/", "HomeController:index")->setName('home');
+$app->get("/api", "HomeController:index")->setName('home');
 
 // Users Endpoints
 $app->get("/api/users", "UserController:index")->setName('users.index');
@@ -18,7 +25,16 @@ $app->put("/api/users/{user_id}/ads/{id}", "AdController:update")->setName('ads.
 $app->delete("/api/ads/{id}", "AdController:destroy")->setName('ads.destroy');
 
 $app->get("/api/users/{user_id}/ads", "AdController:getByUser")->setName('ads.getbyuser');
+$app->get("/api/users/{user_id}/ads/{state}", "AdController:getAdsByState")->setName('ads.getadsbystate');
 
 // Categories Endpoints
 $app->get("/api/categories", "CategoryController:index")->setName('categories.index');
 $app->get("/api/categories/{id}", "CategoryController:show")->setName('categories.show');
+
+// Discussion Endpoints
+$app->get("/api/discussions", "DiscussionController:index")->setName('discussions.index');
+$app->get("/api/discussions/{id}", "DiscussionController:show")->setName('discussions.show');
+$app->post("/api/users/{user_id}/ads/{ad_id}/discussions", "DiscussionController:store")->setName('discussions.store');
+
+// Discussion Replies Endpoints
+$app->get('/api/discussions/{id}/discussion_replies', "DiscussionReplyController:getRepliesByDiscussion")->setName('discussion_replies.getRepliesByDiscussion');

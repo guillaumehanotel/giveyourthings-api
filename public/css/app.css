@@ -1,0 +1,19 @@
+
+p {
+    margin-bottom: 5px;
+}
+
+.structure {
+    font-weight: bold;
+    width: 300px;
+}
+
+pre {
+    font-family: 'Courier New';
+    margin-bottom: 15px;
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
