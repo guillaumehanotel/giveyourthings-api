@@ -135,7 +135,6 @@ class AdController extends Controller {
             return $response->withStatus(400);
         }
 
-        /** @var Validator $validation */
         $validation = $this->validator->validate($request, [
             'title' => v::notEmpty(),
             'type' => v::notEmpty(),
@@ -149,16 +148,6 @@ class AdController extends Controller {
                 ->withHeader('Content-Type', 'text/html')
                 ->write(json_encode($validation->getErrors()));
         }
-
-        $imagesDirectory = $this->upload_directory;
-
-        var_dump($imagesDirectory);
-
-        $uploadedFiles = $request->getUploadedFiles();
-
-        var_dump($uploadedFiles);
-
-        exit();
 
         $data = $request->getParsedBody();
 
@@ -179,6 +168,7 @@ class AdController extends Controller {
         $ad->latitude = $data['latitude'] ?? null;
         $ad->longitude = $data['longitude'] ?? null;
         $ad->condition = $data['condition'];
+        $ad->image_url = $data['image_url'];
         $ad->user_id = $userId;
         $ad->category_id = $data['category_id'];
         $ad->save();
